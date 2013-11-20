@@ -3,7 +3,7 @@ jepub3
 
 A JavaScript dialect for IDPF EPUB3 OPF/OCF
 
-	This document is a purposed structure for JSON EPUB
+	This document is a purposed structure for JS based EPUB
 	It is created and maintained by Lars C Wallin (@larscwallin)
 
 	The document is based on examples from https://code.google.com/p/epub-samples/ 
