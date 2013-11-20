@@ -1,5 +1,5 @@
 /*
-	This document is a purposed structure for JSON EPUB
+	This document is a purposed structure for a JavaScript dialect of the EPUB3 spec.
 	It is created and maintained by Lars C Wallin (@larscwallin)
 
 	This is the main Package definition as specified in http://www.idpf.org/epub/30/spec/epub30-publications.html
