@@ -2,10 +2,12 @@
 	This document is a purposed structure for JSON EPUB
 	It is created and maintained by Lars C Wallin (@larscwallin)
 
+	This is the main Package definition as specified in http://www.idpf.org/epub/30/spec/epub30-publications.html
+
 	The document is based on examples from https://code.google.com/p/epub-samples/ 
 	and the Blank Book package (http://jasonhibbs.co.uk/2012/blank-book/) by Jason Mervyn Hibbs 
 
-
+	As you will see its full of leftovers from my reference hunt. It will be cleaned as work progresses :)
 */
 
 var opf = {
