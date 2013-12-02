@@ -8,65 +8,57 @@ jepub.opds = {
         opds: "http://opds-spec.org/2010/catalog"
     },
     version: "1.1",
-    feed: {},
-    CONST: {
-
-        FEED: {
-            NAVIGATION: {
-                type: "application/json",
-                profile: "opds-catalog",
-                kind: "navigation"
-            },
-            ACQUISITION: {
-                type: "application/json",
-                profile: "opds-catalog",
-                kind: "acquisition"
-            },
-            ENTRY: {
-                type: "application/json;type=entry",
-                profile: "opds-catalog",
-                kind: "acquisition"
-            }
-        },
-
-        REL: {
-            SORT_NEW: "http://opds-spec.org/sort/new",
-            SORT_POPULAR: "http://opds-spec.org/sort/popular",
-            IMAGE: "http://opds-spec.org/image",
-            IMAGE_THUMB: "http://opds-spec.org/image/thumbnail",
-            SUBSECTION: "subsection",
-            START: "start",
-            SELF: "self"
-
-        },
-
-        ACQUISITION: {
-            GENERIC: "http://opds-spec.org/acquisition",
-            OPENACCESS: "http://opds-spec.org/acquisition/open-access",
-            SALE: "http://opds-spec.org/acquisition/buy",
-            LENDING: "http://opds-spec.org/acquisition/borrow",
-            SUBSCRIPTION: "http://opds-spec.org/acquisition/subscribe",
-            SAMPLING: "http://opds-spec.org/acquisition/sample"
-        }
-
-    }
+    feed: {}
 };
 
 /*
-		OPDS Catalog
-		All of the Atom Feeds (Acquisition and Navigation) and Entries (Partial and Complete) following this specification
-		published together to describe a consolidated group of available Publications.
+	OPDS Catalog
+	All of the Atom Feeds (Acquisition and Navigation) and Entries (Partial and Complete) following this specification
+	published together to describe a consolidated group of available Publications.
 
-		The OPDS Catalog Root is the top-level OPDS Catalog Feed Document. It is either a single Acquisition Feed
-		in the simple case or the start of a set of Navigation Feeds. Every OPDS Catalog MUST have one and only one OPDS Catalog Root.
+	The OPDS Catalog Root is the top-level OPDS Catalog Feed Document. It is either a single Acquisition Feed
+	in the simple case or the start of a set of Navigation Feeds. Every OPDS Catalog MUST have one and only one OPDS Catalog Root.
 
-	*/
+*/
 
 jepub.opds.feed.catalog = {
 
+    FEED: {
+        NAVIGATION: {
+            type: "application/json",
+            profile: "opds-catalog",
+            kind: "navigation"
+        },
+        ACQUISITION: {
+            type: "application/json",
+            profile: "opds-catalog",
+            kind: "acquisition"
+        },
+        ENTRY: {
+            type: "application/json;type=entry",
+            profile: "opds-catalog",
+            kind: "acquisition"
+        }
+    },
+
+    RELATION: {
+        SORT_NEW: "http://opds-spec.org/sort/new",
+        SORT_POPULAR: "http://opds-spec.org/sort/popular",
+        RECOMMENDED: "http://opds-spec.org/recommended",
+        FEATURED: "http://opds-spec.org/featured",
+        IMAGE: "http://opds-spec.org/image",
+        IMAGE_THUMBNAIL: "http://opds-spec.org/image/thumbnail",
+        SHELF: "http://opds-spec.org/shelf",
+        SUBSCRIPTIONS: "http://opds-spec.org/subscriptions",
+        FACET: "http://opds-spec.org/facet",
+        SUBSECTION: "subsection",
+        START: "start",
+        SELF: "self"
+    },
+
     /*
-				Catalogs are "indexed" by id for easy retrival.
-		*/
+		Catalogs are "indexed" by id for easy retrival.
+	*/
 
     "12": {
         id: "12",
@@ -77,17 +69,17 @@ jepub.opds.feed.catalog = {
             uri: "www.larscwallin.com"
         },
         link: [{
-            rel: jepub.opds.CONST.REL.SELF,
-            type: jepub.opds.CONST.FEED.NAVIGATION,
+            rel: RELATION.SELF,
+            type: FEED.NAVIGATION,
             href: "/catalog/12/"
         }, {
-            rel: jepub.opds.CONST.REL.START,
-            type: jepub.opds.CONST.FEED.NAVIGATION,
+            rel: RELATION.START,
+            type: FEED.NAVIGATION,
             href: "/catalog/12/"
         }],
         /*
-						Entries are "indexed" by id for easy retrival.
-					*/
+    		Entries are "indexed" by id for easy retrival.
+		*/
         entry: {
             "223": {
                 id: "223",
@@ -98,8 +90,8 @@ jepub.opds.feed.catalog = {
                     uri: "www.larscwallin.com"
                 },
                 link: [{
-                    rel: jepub.opds.CONST.REL.SORT_NEW,
-                    type: jepub.opds.CONST.FEED.ACQUISITION,
+                    rel: RELATION.SORT_NEW,
+                    type: FEED.ACQUISITION,
                     href: "/catalog/12/books?sort=new"
                 }],
                 summary: "View all new books",
@@ -115,8 +107,8 @@ jepub.opds.feed.catalog = {
                     uri: "www.larscwallin.com"
                 },
                 link: [{
-                    rel: jepub.opds.CONST.REL.SUBSECTION,
-                    type: jepub.opds.CONST.FEED.ACQUISITION,
+                    rel: RELATION.SUBSECTION,
+                    type: FEED.ACQUISITION,
                     href: "/catalog/12/books?sort=all"
                 }],
                 summary: "View all books",
@@ -128,17 +120,25 @@ jepub.opds.feed.catalog = {
 };
 
 /*
-		Acquisition Feeds
-		An Acquisition Feed is an OPDS Catalog Feed Document that collects OPDS Catalog Entries into a single, ordered set.
-		The simplest complete OPDS Catalog would be a single Acquisition Feed listing all of the available OPDS Catalog Entries from that provider. In more complex OPDS Catalogs, Acquisition Feeds are used to present and organize sets of related OPDS Catalog Entries for browsing and discovery by clients and aggregators.
+	Acquisition Feeds
+	An Acquisition Feed is an OPDS Catalog Feed Document that collects OPDS Catalog Entries into a single, ordered set.
+	The simplest complete OPDS Catalog would be a single Acquisition Feed listing all of the available OPDS Catalog Entries from that provider. In more complex OPDS Catalogs, Acquisition Feeds are used to present and organize sets of related OPDS Catalog Entries for browsing and discovery by clients and aggregators.
 
-		Links to Acquisition Feeds SHOULD use the "type" attribute "application/atom+xml;profile=opds-catalog;kind=acquisition".
+	Links to Acquisition Feeds SHOULD use the "type" attribute "application/atom+xml;profile=opds-catalog;kind=acquisition".
 
-		For further details on limiting the size of Acquisition Feeds through pagination, Partial Catalog Entries, and compression, see the 
-		Section Listing Acquisition Feeds.
-	*/
+	For further details on limiting the size of Acquisition Feeds through pagination, Partial Catalog Entries, and compression, see the 
+	Section Listing Acquisition Feeds.
+*/
 
 jepub.opds.feed.acquisition = {
+    ACQUISITION: {
+        GENERIC: "http://opds-spec.org/acquisition",
+        OPEN_ACCESS: "http://opds-spec.org/acquisition/open-access",
+        SALE: "http://opds-spec.org/acquisition/buy",
+        LENDING: "http://opds-spec.org/acquisition/borrow",
+        SUBSCRIPTION: "http://opds-spec.org/acquisition/subscribe",
+        SAMPLING: "http://opds-spec.org/acquisition/sample"
+    },
 
     "123": {
         id: "123",
@@ -149,8 +149,8 @@ jepub.opds.feed.acquisition = {
             uri: ""
         },
         /*
-						Entries are "indexed" by id for easy retrival.
-				*/
+    		Entries are "indexed" by id for easy retrival.
+		*/
         entry: {
             "334": {
                 id: "334",
@@ -167,12 +167,15 @@ jepub.opds.feed.acquisition = {
                 }],
                 dc: {
                     language: "EN",
-                    issued: "2013-10-02"
+                    issued: "2013-10-02",
+                    identifier: "",
+                    publisher: ""
                 },
                 link: [{
-                    rel: jepub.opds.CONST.ACQUISITION.GENERIC,
+                    rel: ACQUISITION.GENERIC,
                     type: "application/jepub+zip",
-                    href: "/catalog/12/books/334"
+                    href: "/catalog/12/books/334",
+                    opf
                 }],
                 summary: "",
                 content: ""
@@ -282,6 +285,19 @@ An OPDS Catalog Root that is the top of a set of Navigation Feeds references thr
   </entry>
 </feed>
 
+
+Facets
+
+<link rel="http://opds-spec.org/facet" 
+  opds:facetGroup="Order" 
+  opds:activeFacet="true" 
+  href="/recent" 
+  title="Most recent" />
+<link rel="http://opds-spec.org/facet" 
+  thr:count="600" 
+  opds:facetGroup="Order" 
+  href="/popular" 
+  title="Most popular" />
 
 
 
