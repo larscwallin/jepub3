@@ -7,7 +7,8 @@
 */
 
 
-var ocf = {
+var jepub = window.jepub ? window.jepub : {};
+var jepub.ocf = {
 	xmlns:{
 			ocf:"urn:oasis:names:tc:opendocument:xmlns:container"
 	},
