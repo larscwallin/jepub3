@@ -1,16 +1,16 @@
 /*
-	This document is a purposed structure for a JavaScript dialect of the EPUB3 spec.
-	It is created and maintained by Lars C Wallin (@larscwallin)
+        This document is a purposed structure for a JavaScript dialect of the EPUB3 spec.
+        It is created and maintained by Lars C Wallin (@larscwallin)
 
-	This is the main Package definition as specified in http://www.idpf.org/epub/30/spec/epub30-publications.html
+        This is the main Package definition as specified in http://www.idpf.org/epub/30/spec/epub30-publications.html
 
-	The document is based on examples from https://code.google.com/p/epub-samples/ 
-	and the Blank Book package (http://jasonhibbs.co.uk/2012/blank-book/) by Jason Mervyn Hibbs 
+        The document is based on examples from https://code.google.com/p/epub-samples/ 
+        and the Blank Book package (http://jasonhibbs.co.uk/2012/blank-book/) by Jason Mervyn Hibbs 
 
-	As you will see its full of leftovers from my reference hunt. It will be cleaned as work progresses :)
+        As you will see its full of leftovers from my reference hunt. It will be cleaned as work progresses :)
 */
-
-var opf = {
+var jepub = window.jepub ? window.jepub : {};
+var jepub.opf = {
 	xmlns: {
 		opf:"http://www.idpf.org/2007/opf"
 	},	
@@ -24,6 +24,27 @@ var opf = {
 		/* 
 			OPF Metadata
 			(http://idpf.org/epub/30/spec/epub30-publications.html#sec-metadata-elem) 
+			
+			-- ATTRIBUTES --
+
+			None
+
+			-- /ATTRIBUTES --
+
+			-- CONTENT MODEL --
+
+			In any order: 
+				
+			dc:identifier [1 or more], 
+			dc:title [1 or more], 
+			dc:language [1 or more], 
+			DCMES Optional Elements [0 or more], 
+			meta [1 or more], 
+			OPF2 meta [0 or more], 
+			link [0 or more]
+
+			-- /CONTENT MODEL --
+
 		*/
 		
 		metadata : {
@@ -32,8 +53,56 @@ var opf = {
 				dc:"http://purl.org/dc/elements/1.1/"				
 			},		
 
-			/* Meta property elements (http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-meta-elem) */
+			/* 
+				The Meta element 
+
+				The meta element provides a generic means of including package metadata, 
+				allowing the expression of primary metadata about the package or content and
+				refinement of that metadata.
+
+				(http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-meta-elem) 
+
+				-- ATTRIBUTES --
+
+				property [required]
+				A property.
+				Refer to Vocabulary Association Mechanisms for more information.
+
+				refines [context dependent]
+				Identifies the expression or resource augmented by this element. The value of the attribute must be a relative IRI [RFC3987] pointing to the resource or element it describes.
+
+				The refines attribute is optional depending on the type of metadata being expressed. When omitted, the meta element defines a primary expression.
+
+				id [optional]
+				The ID [XML] of this element, which must be unique within the document scope.
+
+				scheme [optional]
+				A property data type value indicating the source the value of the element is drawn from.
+
+				-- /ATTRIBUTES --
+
+				-- CONTENT MODEL --
+
+				Text
+
+				-- /CONTENT MODEL --
+			*/
+
 			meta:[ 
+
+				/*
+					The property Data Type
+					The property data type is a compact means of expressing an IRI [RFC3987] and consists of an optional prefix separated from a reference by a colon.
+					(http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-property-datatype)
+
+					-- CONTENT MODEL --
+					
+					Empty
+
+					-- /CONTENT MODEL --
+
+				*/
+
 				{property:"file-as", refines:"#creator", value:"Hibbs, Jason"},
 				{property:"role", refines:"#creator", scheme:"marc:relators", value:"aut"},
 				{property:"dcterms:modified", value:"2012_05_29T23:59:59Z"},
@@ -49,11 +118,13 @@ var opf = {
 				{property:"media:active-class", value:"-epub-media-overlay-active"}
 			],
 
-			/* 	Links to external metadata resources 
-
+			/* 	
+				The link Element
+				The link element is used to associate resources with a Publication, such as metadata records.
 				(http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-link-elem)
 	
-				Attributes
+				-- ATTRIBUTES --
+				
 				href [required]
 				An absolute or relative IRI reference [RFC3987] to a resource.
 
@@ -71,6 +142,14 @@ var opf = {
 				media-type [optional]
 				A media type [RFC2046] that specifies the type and format of the resource referenced by this link.
 			
+				-- /ATTRIBUTES --
+				
+				-- CONTENT MODEL --
+				
+				Empty
+
+				-- /CONTENT MODEL --
+				
 				-- NOTE --
 
 				Resources identified by the link element href attribute must not be represented as items in the manifest.
@@ -122,8 +201,8 @@ var opf = {
 		},	
 
 		/* 
-			The Manifest lists _all_ resources contained in the package, as well as links to external 
-			resources. 
+			The manifest Element
+			The manifest element provides an exhaustive list of the Publication Resources that constitute the EPUB Publication, each represented by an item element.
 
 			(http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-manifest-elem)
 
@@ -134,11 +213,19 @@ var opf = {
 			
 			-- /ATTRIBUTES -- 
 
+			-- CONTENT MODEL --
+			
+			One or more item elements [required]
+
+			-- /CONTENT MODEL --
+
 		*/
 		manifest : {
 
 			/*
-				The Manifest Items (http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-item-elem)
+				The Item Element
+				The item element represents a Publication Resource.
+				(http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-item-elem)
 
 				-- ATTRIBUTES --
 
@@ -168,6 +255,12 @@ var opf = {
 
 				-- /ATTRIBUTES --
 
+				-- CONTENT MODEL --
+				
+				Empty
+
+				-- /CONTENT MODEL --
+
 			*/
 			item:[
 				{id:"toc", href:"navigation/toc.xhtml", properties:["nav"], media_type:"application/xhtml+xml"},			    
@@ -193,9 +286,8 @@ var opf = {
 		},
 		/*
 
-			The spine element defines the default reading order of the EPUB Publication 
-			content by defining an ordered list of manifest item references. 
-
+			The spine Element
+			The spine element defines the default reading order of the EPUB Publication content by defining an ordered list of manifest item references.
 			(http://www.idpf.org/epub/30/spec/epub30-publications.html#sec-spine-elem)
 
 			-- ATTRIBUTES --
@@ -216,14 +308,19 @@ var opf = {
 			When the default value is specified, the Author is expressing no preference and the Reading System may chose the rendering direction. This value must be assumed when the attribute is not specified.
 		
 			-- /ATTRIBUTES --
+
+			-- CONTENT MODEL --
+			
+			Multiple itemref elements [required]
+
+			-- /CONTENT MODEL --
+
 		*/
 		spine:{ 
 			page_progression_direction:"ltr",
 			/*
-				The child itemref elements of the spine represent a sequential list of 
-				Publication Resources (typically EPUB Content Documents). 
-				The order of the itemref elements defines the default reading order of the Publication.
-			
+				The itemref Element
+				The child itemref elements of the spine represent a sequential list of Publication Resources (typically EPUB Content Documents). The order of the itemref elements defines the default reading order of the Publication.	
 				(http://www.idpf.org/epub/30/spec/epub30-publications.html#elemdef-spine-itemref)
 
 				-- ATTRIBUTES --
@@ -246,6 +343,12 @@ var opf = {
 				
 				-- /ATTRIBUTES --
 
+				-- CONTENT MODEL --
+				
+				Empty
+
+				-- /CONTENT MODEL --
+
 			*/
 			itemref : [
 				{ idref:"cover", linear:"no", properties:["cover-image"]},
@@ -259,10 +362,10 @@ var opf = {
 
 		/* 
 			
+			The bindings Element
 			The bindings element defines a set of custom handlers for media types not supported by this specification.
-			Handlers for custom mime types. These are used to map custom widgets etc to script controllers  				
-			
 			(http://www.idpf.org/epub/30/spec/epub30-publications.html#elemdef-bindings)
+			
 					
 			-- NOTE -- 
 
@@ -275,13 +378,19 @@ var opf = {
 
 			-- /NOTE -- 
 
+
+			-- CONTENT MODEL --
+			
+			One or more mediaType elements [required]
+
+			-- /CONTENT MODEL --
 		*/
 		bindings:{
 
 			/*
 			
-			The mediaType element associates a Foreign Resource media type with a handler XHTML Content Document.
-			
+			The mediaType Element
+			The mediaType element associates a Foreign Resource media type with a handler XHTML Content Document.			
 			(http://www.idpf.org/epub/30/spec/epub30-publications.html#elemdef-mediaType)
 		
 			-- ATTRIBUTES --
@@ -293,6 +402,12 @@ var opf = {
 			An IDREF [XML] that identifies the manifest XHTML Content Document to be invoked to handle content of the type specified in this element
 
 			-- /ATTRIBUTES --
+
+			-- CONTENT MODEL --
+			
+			Empty
+
+			-- /CONTENT MODEL --
 			
 			*/ 
 			mediaType: [
