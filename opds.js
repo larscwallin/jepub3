@@ -9,16 +9,21 @@ jepub.opds = {
 	},
 	version:"1.1",
 	feed:{},
-	const:{
+	CONST:{
 		
 		FEED:{
 			NAVIGATION:{
-		 		type:"application/atom+json",
+		 		type:"application/json",
 		 		profile:"opds-catalog",
 		 		kind:"navigation"
 			},
 			ACQUISITION:{
-		 		type:"application/atom+json",
+		 		type:"application/json",
+		 		profile:"opds-catalog",
+		 		kind:"acquisition"
+			},
+			ENTRY:{
+		 		type:"application/json;type=entry",
 		 		profile:"opds-catalog",
 		 		kind:"acquisition"
 			}
@@ -59,6 +64,10 @@ jepub.opds = {
 
 	jepub.opds.feed.catalog = {
 	
+		/*
+				Catalogs are "indexed" by id for easy retrival.
+		*/
+	
 		"12":{
 					id:"12",
 					title:"Lars Catalog Of Good Books",
@@ -69,16 +78,19 @@ jepub.opds = {
 					},
 					link:[
 						{
-							rel:jepub.opds.const.REL.SELF,
-							type: jepub.opds.const.FEED.NAVIGATION,
-							href:"/opds-catalog/root.js"
+							rel:jepub.opds.CONST.REL.SELF,
+							type: jepub.opds.CONST.FEED.NAVIGATION,
+							href:"/catalog/12/"
 						},
 						{
-							rel:jepub.opds.const.REL.START,
-							type: jepub.opds.const.FEED.NAVIGATION,
-							href:"/opds-catalog/root.js"
+							rel:jepub.opds.CONST.REL.START,
+							type: jepub.opds.CONST.FEED.NAVIGATION,
+							href:"/catalog/12/"
 						}			
 					],
+					/*
+						Entries are "indexed" by id for easy retrival.
+					*/
 					entry:{
 						"223":{
 							id:"223",
@@ -90,17 +102,18 @@ jepub.opds = {
 							},
 							link:[
 								{
-									rel: jepub.opds.const.REL.SORT_NEW,
-									type: jepub.opds.const.FEED.ACQUISITION,
-									href:"/opds-catalog/books.new.js"
+									rel: jepub.opds.CONST.REL.SORT_NEW,
+									type: jepub.opds.CONST.FEED.ACQUISITION,
+									href:"/catalog/12/books?sort=new"
 								}
 							],
-							summary:"",
-							content:"View all new books"
+							summary: "View all new books",
+							content: ""
 						},
+						
 						"224":{
 							id:"224",
-							title:"All Games",
+							title:"All Books",
 							updated:"2013-11-12",
 							author:{
 								name:"Lars C Wallin",
@@ -108,12 +121,13 @@ jepub.opds = {
 							},
 							link:[
 								{
-									rel: jepub.opds.const.REL.SUBSECTION,
-									type: jepub.opds.const.FEED.ACQUISITION,
-									href:"/opds-catalog/books.js"
+									rel: jepub.opds.CONST.REL.SUBSECTION,
+									type: jepub.opds.CONST.FEED.ACQUISITION,
+									href:"/catalog/12/books?sort=all"
 								}
 							],
-							content:"View all books"
+							summary:"View all books",
+							content:""
 						}
 					
 					}
@@ -141,28 +155,34 @@ jepub.opds = {
 					name:"",
 					uri:""
 				},
-	
+	 			/*
+						Entries are "indexed" by id for easy retrival.
+				*/
 				entry:{
 					"334":{
 						id:"334",
-						title:"",
-						updated:"",
+						title:"A Book About EPUB3",
+						updated:"2013-10-02",
 						author:{
-							name:"",
-							uri:""
+							name:"Some A Uthor",
+							uri:"http://www.someauthor.com"
 						},
 						category:[
-							
+							{
+								scheme:"http://www.bisg.org/what-we-do-0-136-bisac-subject-headings-list-major-subjects.php",
+								term:"COM065000	",
+								label:"COMPUTERS / Electronic Publishing"
+							}
 						],
 						dc:[
-							language:"SE",
-							issued:""
+							language:"EN",
+							issued:"2013-10-02"
 						],
 						link:[
 							{
-								rel:jepub.opds.const.ACQUISITION.GENERIC,
+								rel:jepub.opds.CONST.ACQUISITION.GENERIC,
 								type:"application/jepub+zip",
-								href:""
+								href:"/catalog/12/books/334"
 							}
 						],
 						summary:"",
