@@ -174,10 +174,10 @@ jepub.opds = {
 								label:"COMPUTERS / Electronic Publishing"
 							}
 						],
-						dc:[
+						dc:{
 							language:"EN",
 							issued:"2013-10-02"
-						],
+						},
 						link:[
 							{
 								rel:jepub.opds.CONST.ACQUISITION.GENERIC,
