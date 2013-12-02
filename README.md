@@ -6,7 +6,9 @@ A JavaScript dialect for IDPF EPUB3 OPF/OCF and the Open Publication Distributio
 	This document is a purposed structure for JS based EPUB
 	It is created and maintained by Lars C Wallin (@larscwallin)
 
-	* The document is based on examples from https://code.google.com/p/epub-samples/ 
+	My work is based on examples from:
+
+	* https://code.google.com/p/epub-samples/ 
 	* The Blank Book package (http://jasonhibbs.co.uk/2012/blank-book/) by Jason Mervyn Hibbs 
 	* The spec on http://opds-spec.org/
 	
