@@ -12,4 +12,5 @@ A JavaScript dialect for IDPF EPUB3 OPF/OCF and the Open Publication Distributio
 	
 	Please, do fork, send suggestions and whatnot! :)
 
-	As you will notice the code is somewhere between documentation and implementation and kinda sketchy.  It is 		well commented however so anyone who is into EPUB should grasp things fairly easily I hope.
+	As you will notice the code is somewhere between documentation and implementation and kinda sketchy.  
+	It is well commented however so anyone who is into EPUB should grasp things fairly easily I hope.
