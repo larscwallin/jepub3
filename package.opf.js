@@ -10,7 +10,7 @@
         As you will see its full of leftovers from my reference hunt. It will be cleaned as work progresses :)
 */
 var jepub = window.jepub ? window.jepub : {};
-var jepub.opf = {
+jepub.opf = {
 	xmlns: {
 		opf:"http://www.idpf.org/2007/opf"
 	},	
