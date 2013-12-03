@@ -27,7 +27,7 @@
 		-- /CONTENT MODEL --
 	*/
 var jepub = window.jepub ? window.jepub : {};
-var jepub.smil = [{
+jepub.smil = [{
 	xmlns: [{smil:"http://www.w3.org/ns/SMIL"},{epub:"http://www.idpf.org/2007/ops"}],
 	version: "3.0",
 	// EPUB Namespace members
