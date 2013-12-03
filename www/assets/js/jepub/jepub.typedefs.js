@@ -58,10 +58,7 @@
 			SUBSECTION: "subsection",
 			START: "start",
 			SELF: "self"
-		},
-
-		catalogFeeds: [],
-		acquisitionFeeds: []
+		}
 
 	};
 

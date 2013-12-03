@@ -26,15 +26,18 @@
 
 		-- /CONTENT MODEL --
 	*/
-var jepub = window.jepub ? window.jepub : {};
-jepub.smil = [{
-	xmlns: [{smil:"http://www.w3.org/ns/SMIL"},{epub:"http://www.idpf.org/2007/ops"}],
-	version: "3.0",
-	// EPUB Namespace members
-	epub:[
-		prefix:""
-	], 
-	/*
+ {
+ 	xmlns: [{
+ 		smil: "http://www.w3.org/ns/SMIL"
+ 	}, {
+ 		epub: "http://www.idpf.org/2007/ops"
+ 	}],
+ 	version: "3.0",
+ 	// EPUB Namespace members
+ 	epub: [
+ 		prefix: ""
+ 	],
+ 	/*
 		The head Element
 		The head element is the container for metadata in the Media Overlay Document, and consists of zero or one child metadata element.
 		(http://www.idpf.org/epub/30/spec/epub30-mediaoverlays.html#elemdef-smil-head)
@@ -43,8 +46,8 @@ jepub.smil = [{
 		None
 		-- /ATTRIBUTES --
 	*/
-	head:{
-		/*
+ 	head: {
+ 		/*
 			The metadata Element
 			The metadata element represents metadata for the Media Overlay Document. The metadata element is an extension point that allows the inclusion of metadata from any metainformation structuring language.
 			(http://www.idpf.org/epub/30/spec/epub30-mediaoverlays.html#elemdef-smil-metadata)
@@ -62,11 +65,11 @@ jepub.smil = [{
 		*/
 
 
-		metadata:{
+ 		metadata: {
 
-		}
-	},
-	/*
+ 		}
+ 	},
+ 	/*
 		The body Element
 		The body element is the starting point for the presentation contained in the Media Overlay Document. It contains the main sequence of par and seq elements.
 		(http://www.idpf.org/epub/30/spec/epub30-mediaoverlays.html#elemdef-smil-body)
@@ -92,14 +95,14 @@ jepub.smil = [{
 		-- /CONTENT MODEL --
 
 
-	*/	
-	body:{
-		id:"",		
-		epub:[			
-			type:[""],
-			textref:""
-		],
-		/*
+	*/
+ 	body: {
+ 		id: "",
+ 		epub: [
+ 			type: [""],
+ 			textref: ""
+ 		],
+ 		/*
 			The metadata Element
 			The metadata element represents metadata for the Media Overlay Document. The metadata element is an extension point that allows the inclusion of metadata from any metainformation structuring language.
 			(http://www.idpf.org/epub/30/spec/epub30-mediaoverlays.html#elemdef-smil-metadata)
@@ -126,13 +129,13 @@ jepub.smil = [{
 		
 			-- /CONTENT MODEL --
 		*/
-		seq:[
-			id:"",
-			epub:[
-				type:"",
-				textref:""
-			],
-			/*
+ 		seq: [
+ 			id: "",
+ 			epub: [
+ 				type: "",
+ 				textref: ""
+ 			],
+ 			/*
 				The PAR Element
 				The par element contains media objects which are to be rendered in parallel.
 				(http://www.idpf.org/epub/30/spec/epub30-mediaoverlays.html#elemdef-smil-par)
@@ -157,19 +160,17 @@ jepub.smil = [{
 				-- /CONTENT MODEL --
 
 			*/
-			par:[
-				{
-					id:"pre-pause",	
-					text: {
-						src="../p03.xhtml#pre-pause"
-					},
-					audio:{
-						src:"../audio/book_audio.m4a", 
-						clipBegin:"0.000s", 
-						clipEnd:"2.000s"
-					}
-				}
-			]
-		]
-	}
-}];
+ 			par: [{
+ 				id: "pre-pause",
+ 				text: {
+ 					src = "../p03.xhtml#pre-pause"
+ 				},
+ 				audio: {
+ 					src: "../audio/book_audio.m4a",
+ 					clipBegin: "0.000s",
+ 					clipEnd: "2.000s"
+ 				}
+ 			}]
+ 		]
+ 	}
+ };
